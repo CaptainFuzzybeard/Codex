@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2f5a24">
+<title>Codex</title>
+<style>
+:root{--g:#264a1e;--w:#fff;--w80:rgba(255,255,255,.8);--w60:rgba(255,255,255,.6);--w25:rgba(255,255,255,.28);--w12:rgba(255,255,255,.12);--lime:#e3f7b0}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:#2f5a24}
+body{isolation:isolate;margin:0;min-height:100vh;color:var(--w);font:400 16px/1.5 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:-.005em;text-align:center;padding:calc(36px + env(safe-area-inset-top,0px)) 24px calc(56px + env(safe-area-inset-bottom,0px))}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:url(background.jpg) center/cover no-repeat}
+main{max-width:720px;margin:0 auto;text-shadow:0 1px 16px rgba(10,30,8,.45)}
+.brand{font-size:26px;font-weight:600;letter-spacing:-.03em}
+.tabs{display:inline-flex;padding:4px;margin:20px 0 8vh;border-radius:999px;background:rgba(250,250,244,.58);border:1px solid rgba(255,255,255,.6);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px)}
+.tabs button{height:36px;padding:0 22px;border-radius:999px;border:0;background:none;color:rgba(47,90,36,.7);font-weight:500;font-size:15px;font-family:inherit;cursor:pointer;text-shadow:none;transition:background .25s,color .25s}
+.tabs button:hover{color:var(--g)}
+.tabs button[aria-selected=true]{background:var(--lime);color:var(--g)}
+section[hidden]{display:none}
+section{animation:fade .5s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+textarea{display:block;width:100%;background:rgba(250,250,244,.58);color:var(--g);border:1px solid rgba(255,255,255,.6);border-radius:22px;padding:22px 26px;box-shadow:0 10px 30px rgba(10,30,8,.18);font-weight:300;font-size:28px;line-height:1.3;font-family:inherit;letter-spacing:-.025em;text-align:center;resize:none;overflow:hidden;outline:none;text-shadow:none;-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);transition:border-color .3s,background .3s}
+textarea:hover{border-color:rgba(255,255,255,.95)}
+textarea:focus{border-color:#fff;background:rgba(255,255,250,.74)}
+textarea::placeholder{color:rgba(40,77,31,.62)}
+#vine{margin-top:16px;padding:30px 26px;border-radius:24px;background:rgba(250,250,244,.58);border:1px solid rgba(255,255,255,.6);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);box-shadow:0 20px 50px rgba(10,30,8,.35);color:var(--g);animation:pop .45s cubic-bezier(.2,.7,.2,1) both}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+#vine:empty{display:none}
+#vine svg{display:block;width:100%;height:auto;overflow:visible}
+#vine g[data-c]:hover{stroke:#6fa82e;transition:stroke .15s}
+.row{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:24px}
+.btn{height:44px;padding:0 26px;border-radius:999px;border:1px solid rgba(255,255,255,.7);background:rgba(250,250,244,.58);color:var(--g);font-weight:500;font-size:15px;font-family:inherit;cursor:pointer;text-shadow:none;-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);transition:background .2s,color .2s,transform .2s,box-shadow .2s}
+.btn:hover{background:var(--lime);color:var(--g);transform:translateY(-2px);box-shadow:0 10px 24px rgba(10,30,8,.35)}
+.btn:active{transform:scale(.97)}
+.btn.p{background:rgba(255,255,250,.8);color:var(--g);border-color:var(--g)}
+.btn.p:hover{background:var(--lime)}
+.btn:focus-visible,.tabs button:focus-visible,.key button:focus-visible{outline:2px solid var(--g);outline-offset:3px}
+.btn[disabled]{opacity:.4;pointer-events:none}
+#st,#un{font-size:13px;color:var(--w80);min-height:20px;margin-top:12px}
+#out{padding:22px 26px;border-radius:22px;background:rgba(250,250,244,.58);color:var(--g);text-shadow:none;border:1px solid rgba(255,255,255,.6);box-shadow:0 10px 30px rgba(10,30,8,.18);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);font-size:28px;font-weight:300;line-height:1.25;letter-spacing:-.025em;min-height:1.25em;margin-top:16px;white-space:pre-wrap;word-break:break-word}
+#out:empty::before{content:"Your reading appears here";color:rgba(40,77,31,.62)}
+h2{font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--w80);margin:64px 0 18px}
+.key{display:grid;grid-template-columns:repeat(auto-fit,minmax(62px,68px));justify-content:center;gap:10px}
+.key button{display:flex;flex-direction:column;align-items:center;padding:8px 2px 6px;border-radius:16px;border:1px solid rgba(255,255,255,.6);background:rgba(250,250,244,.58);color:var(--g);cursor:pointer;text-shadow:none;-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);transition:background .2s,color .2s,transform .2s,box-shadow .2s}
+.key button:hover{background:var(--lime);color:var(--g);transform:translateY(-4px) scale(1.06);box-shadow:0 12px 24px rgba(10,30,8,.35)}
+.key button:active{transform:scale(.95)}
+.key svg{width:100%;height:auto}
+.key span{font-size:12px;font-weight:500;margin-top:2px}
+@media (max-width:520px){textarea,#out{font-size:22px}#vine{padding:22px 14px}.tabs{margin-bottom:6vh}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<main>
+<div class="brand">Codex</div>
+<div class="tabs" role="tablist"><button role="tab" id="t1" aria-selected="true">Write</button><button role="tab" id="t2" aria-selected="false">Read</button></div>
+
+<section id="w">
+<textarea id="inp" rows="1" placeholder="Write something…" aria-label="Message"></textarea>
+<div id="vine" aria-live="polite"></div>
+<div class="row"><button class="btn p" id="ci" disabled>Copy image</button><button class="btn" id="cs" disabled>Copy SVG</button></div>
+<div id="st"></div><div id="un"></div>
+</section>
+
+<section id="r" hidden>
+<textarea id="pas" rows="1" placeholder="Paste a copied SVG, or tap the key…" aria-label="Paste SVG"></textarea>
+<div id="out" aria-live="polite"></div>
+<div class="row" style="margin-top:28px"><button class="btn" id="sp">Word break</button><button class="btn" id="bk">Delete</button><button class="btn" id="cl">Clear</button></div>
+<h2>KEY</h2>
+<div class="key" id="key"></div>
+</section>
+</main>
+<script>
+const SH=['bud','leaf','loop','curl','fork','drop'];
+const S={
+bud:s=>`<path d="M0 0V${s*8}"/><circle cx="0" cy="${s*13}" r="5"/>`,
+leaf:s=>`<path d="M0 0Q11 ${s*11} 0 ${s*24}Q-11 ${s*11} 0 0Z" transform="rotate(${s*-18})"/>`,
+loop:s=>`<path d="M0 0C16 ${s*4} 16 ${s*22} 2 ${s*19}C-8 ${s*17} -2 ${s*7} 7 ${s*9}"/>`,
+curl:s=>`<path d="M0 0C0 ${s*11} 13 ${s*13} 13 ${s*5}C13 ${s*-1} 6 0 6 ${s*5}"/>`,
+fork:s=>`<path d="M0 0V${s*10}M0 ${s*10}L-7 ${s*21}M0 ${s*10}L7 ${s*21}"/>`,
+drop:s=>`<path d="M0 0V${s*6}M0 ${s*6}C-9 ${s*16} -5 ${s*23} 0 ${s*23}C5 ${s*23} 9 ${s*16} 0 ${s*6}Z"/>`,
+dot:s=>`<circle cx="0" cy="${s*7}" r="3.6" fill="currentColor"/>`,
+tick:s=>`<path d="M0 0L3 ${s*12}"/>`};
+const L={},LET='abcdefghijklmnopqrstuvwxyz',PUN='.,;:!?"()-';
+const pairs=[];for(let u=0;u<6;u++)for(let d=0;d<6;d++)if(u!=d)pairs.push([u,d]);
+const pp=pairs.filter((_,i)=>i%2==0).slice(0,14);
+[...LET].forEach((c,i)=>{L[c]=i<6?[SH[i],null]:i<12?[null,SH[i-6]]:[SH[pp[i-12][0]],SH[pp[i-12][1]]]});
+Object.assign(L,{'.':['dot',null],',':[null,'tick'],';':['dot','tick'],':':['dot','dot'],'!':['tick','dot'],'?':['curl','dot'],'"':['loop','loop'],'(':['tick','curl'],')':['curl','tick'],'-':['tick','tick']});
+const esc=c=>c=='"'?'&quot;':c;
+const sh=(n,x,s)=>`<g transform="translate(${x} 0)">${S[n](s)}</g>`;
+function glyph(c,x,y,tip){const[u,d]=L[c],p=!/[a-z]/.test(c),b=u&&d;
+let s=`<g data-c="${esc(c)}" transform="translate(${x} ${y})">${tip?`<title>${esc(c)}</title>`:''}<path d="M0 0H44" stroke-width="3"/>`;
+if(p)s+='<path d="M0 6H44" stroke-width="1.4"/>';
+if(u)s+=sh(u,b?14:22,-1);if(d)s+=sh(d,b?30:22,1);return s+'</g>'}
+const sep=(x,y,tip)=>`<g data-c=" " transform="translate(${x} ${y})">${tip?'<title>word break</title>':''}<path d="M0 0H30" stroke-width="3"/><path d="M11 -6L3 0L11 6" stroke-width="1.8"/></g>`;
+const MAXW=616;let bad=new Set();
+function build(t,exp){
+t=t.toLowerCase().replace(/[’‘']/g,'"').replace(/[“”]/g,'"');
+const words=t.split(/\s+/).filter(Boolean),tip=!exp;bad=new Set();const rows=[[]];let x=0;
+words.forEach((w,i)=>{const cs=[...w].filter(c=>L[c]||(bad.add(c),0));
+if(i>0){rows[rows.length-1].push(' ');x+=30}
+if(x>0&&x+cs.length*44>MAXW){rows.push([]);x=0}
+cs.forEach(c=>{rows[rows.length-1].push(c);x+=44})});
+let out='';rows.forEach((row,r)=>{const w=row.reduce((a,c)=>a+(c==' '?30:44),0)-(row[row.length-1]==' '?30:0);let px=(MAXW-w)/2;
+row.forEach(c=>{out+=c==' '?sep(px,50+r*100,tip):glyph(c,px,50+r*100,tip);px+=c==' '?30:44})});
+const H=rows.length*100+10,g=`<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">${out}</g>`;
+return exp?`<svg xmlns="http://www.w3.org/2000/svg" viewBox="-44 -20 ${MAXW+88} ${H+40}" width="${MAXW+88}" height="${H+40}" color="#2f5a24"><rect x="-44" y="-20" width="${MAXW+88}" height="${H+40}" fill="#fbfbf7"/>${g}</svg>`
+:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${MAXW} ${H}">${g}</svg>`}
+const $=id=>document.getElementById(id);
+const grow=e=>{e.style.height='auto';e.style.height=e.scrollHeight+2+'px'};
+let tm;const st=m=>{$('st').textContent=m;clearTimeout(tm);tm=setTimeout(()=>$('st').textContent='',2600)};
+function render(){const t=$('inp').value,on=!!t.trim();grow($('inp'));
+$('vine').innerHTML=on?build(t,false):'';
+$('ci').disabled=$('cs').disabled=!on;
+$('un').textContent=on&&bad.size?'No glyph for: '+[...bad].join(' '):''}
+$('inp').addEventListener('input',render);
+$('cs').onclick=async()=>{const t=$('inp').value;if(!t.trim())return;const s=build(t,true);
+try{await navigator.clipboard.writeText(s);st('SVG copied')}catch(e){const a=document.createElement('textarea');a.value=s;document.body.appendChild(a);a.select();try{document.execCommand('copy');st('SVG copied')}catch(_){st('Copy was blocked')}a.remove()}};
+$('ci').onclick=()=>{const t=$('inp').value;if(!t.trim())return;const im=new Image();
+im.onload=()=>{const c=document.createElement('canvas');c.width=im.width*2;c.height=im.height*2;c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+c.toBlob(async b=>{try{await navigator.clipboard.write([new ClipboardItem({'image/png':b})]);st('Image copied')}catch(e){const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='codex.png';a.click();st('Saved as codex.png')}},'image/png')};
+im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(build(t,true))};
+$('pas').addEventListener('input',()=>{grow($('pas'));const t=$('pas').value;if(!t.trim())return;
+const d=new DOMParser().parseFromString(t,'image/svg+xml');
+if(d.querySelector('parsererror')){$('out').textContent='That isn’t SVG copied from Codex.';return}
+let r='';d.querySelectorAll('[data-c]').forEach(g=>r+=g.getAttribute('data-c'));$('out').textContent=r||'No glyphs found.'});
+const add=c=>$('out').textContent+=c;
+$('sp').onclick=()=>add(' ');$('bk').onclick=()=>$('out').textContent=$('out').textContent.slice(0,-1);
+$('cl').onclick=()=>{$('out').textContent='';$('pas').value='';grow($('pas'))};
+[...LET,...PUN].forEach(c=>{const b=document.createElement('button');b.setAttribute('aria-label',c);
+b.innerHTML=`<svg viewBox="0 0 52 66" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">${glyph(c,4,34,false)}</g></svg><span>${c}</span>`;
+b.onclick=()=>add(c);$('key').appendChild(b)});
+function tab(w){$('w').hidden=w!=1;$('r').hidden=w!=2;$('t1').setAttribute('aria-selected',w==1);$('t2').setAttribute('aria-selected',w==2);if(w==1)$('inp').focus()}
+$('t1').onclick=()=>tab(1);$('t2').onclick=()=>tab(2);
+</script></body></html>
